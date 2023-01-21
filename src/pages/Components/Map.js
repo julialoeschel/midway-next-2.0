@@ -6,6 +6,7 @@ import Image from "next/image";
 
 export default function Map({ marker, onNewMarekr }) {
   const [pageIsMounted, setPageIsMounted] = useState(false);
+  const [centerOfMap, setCenterOfMap] = useState([15.4542, 18.7322]);
 
   const features = marker.map((singleMarker) => {
     return {
@@ -28,7 +29,7 @@ export default function Map({ marker, onNewMarekr }) {
       const map = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/light-v10",
-        center: [15.4542, 18.7322], // center map on Chad
+        center: centerOfMap, // center map on Chad
         zoom: 2,
       });
 
@@ -64,6 +65,9 @@ export default function Map({ marker, onNewMarekr }) {
             });
 
             map.on("click", (event) => {
+              const center = map.getCenter();
+              setCenterOfMap(center);
+
               const features = map.queryRenderedFeatures(event.point, {
                 layers: ["points"],
               });
@@ -85,6 +89,8 @@ export default function Map({ marker, onNewMarekr }) {
     }
   }, [pageIsMounted, marker]);
 
+  console.log("center", centerOfMap);
+
   return (
     <>
       <MapContainer id="map"></MapContainer>
@@ -96,21 +102,3 @@ const MapContainer = styled.div`
   height: 90%;
   width: 90%;
 `;
-
-// //
-//     // Add a symbol layer
-//     map.addLayer({
-//       id: "points",
-//       type: "symbol",
-//       source: "points",
-//       layout: {
-//         "icon-image": "custom-marker",
-//         // get the title name from the source's "title" property
-//         "text-field": ["get", "title"],
-//         "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-//         "text-offset": [0, 1.25],
-//         "text-anchor": "top",
-//       },
-//     });
-//   });
-// });
