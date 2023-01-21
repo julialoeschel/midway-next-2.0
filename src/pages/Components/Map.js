@@ -6,7 +6,8 @@ import Image from "next/image";
 
 export default function Map({ marker, onNewMarekr }) {
   const [pageIsMounted, setPageIsMounted] = useState(false);
-  const [centerOfMap, setCenterOfMap] = useState([15.4542, 18.7322]);
+  const [centerOfMap, setCenterOfMap] = useState([10.0966, 50.97]);
+  const [zoom, setZoom] = useState(4.5);
 
   const features = marker.map((singleMarker) => {
     return {
@@ -30,7 +31,7 @@ export default function Map({ marker, onNewMarekr }) {
         container: "map",
         style: "mapbox://styles/mapbox/light-v10",
         center: centerOfMap, // center map on Chad
-        zoom: 2,
+        zoom: zoom,
       });
 
       if (map) {
@@ -67,6 +68,8 @@ export default function Map({ marker, onNewMarekr }) {
             map.on("click", (event) => {
               const center = map.getCenter();
               setCenterOfMap(center);
+              const zoom = map.getZoom();
+              setZoom(zoom);
 
               const features = map.queryRenderedFeatures(event.point, {
                 layers: ["points"],
