@@ -4,8 +4,18 @@ import styled from "styled-components";
 import markerImage from "../../../public/images/Marker.png";
 import Image from "next/image";
 
-export default function Map() {
+export default function Map({ marker, onNewMarekr }) {
   const [pageIsMounted, setPageIsMounted] = useState(false);
+
+  const features = marker.map((singleMarker) => {
+    return {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [singleMarker.lng, singleMarker.lat],
+      },
+    };
+  });
 
   useEffect(() => {
     setPageIsMounted(true);
@@ -34,30 +44,7 @@ export default function Map() {
                 type: "geojson",
                 data: {
                   type: "FeatureCollection",
-                  features: [
-                    {
-                      // feature for Mapbox DC
-                      type: "Feature",
-                      geometry: {
-                        type: "Point",
-                        coordinates: [9.933314663689863, 53.553269384841236],
-                      },
-                      properties: {
-                        title: "Hamburg",
-                      },
-                    },
-                    {
-                      // feature for Mapbox SF
-                      type: "Feature",
-                      geometry: {
-                        type: "Point",
-                        coordinates: [12.483117968118012, 41.89260966939404],
-                      },
-                      properties: {
-                        title: "Rom",
-                      },
-                    },
-                  ],
+                  features: features,
                 },
               });
               map.addLayer({
@@ -81,6 +68,7 @@ export default function Map() {
                 layers: ["points"],
               });
               if (!features.length) {
+                onNewMarekr(event.lngLat);
                 return;
               }
               const feature = features[0];
@@ -95,7 +83,7 @@ export default function Map() {
         );
       }
     }
-  }, [pageIsMounted]);
+  }, [pageIsMounted, marker]);
 
   return (
     <>

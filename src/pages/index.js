@@ -1,8 +1,16 @@
 import Map from "./Components/Map";
 import Head from "next/head";
 import styled from "styled-components";
+import { useState } from "react";
 
 export default function Home() {
+  const [marker, setMarker] = useState([
+    { lng: 73.62, lat: 14.411 },
+    { lng: 58.62, lat: 20.411 },
+  ]);
+
+  console.log(marker);
+
   return (
     <MainPage>
       <Head>
@@ -13,7 +21,12 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      <Map></Map>
+      <Map
+        marker={marker}
+        onNewMarekr={(lngLatObject) =>
+          setMarker((prev) => [...prev, lngLatObject])
+        }
+      ></Map>
     </MainPage>
   );
 }
