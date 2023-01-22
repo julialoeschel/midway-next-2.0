@@ -1,13 +1,17 @@
 import mapboxgl from "mapbox-gl"; // or "const mapboxgl = require('mapbox-gl');"
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import markerImage from "../../../public/images/Marker.png";
-import Image from "next/image";
+import * as turf from "@turf/center";
+// tried it all
+// import center from "@turf/center";
+// import midpoint from "@turf/midpoint";
+// import point from "@turf/helpers";
 
 export default function Map({ marker, onNewMarekr }) {
   const [pageIsMounted, setPageIsMounted] = useState(false);
   const [centerOfMap, setCenterOfMap] = useState([10.0966, 50.97]);
   const [zoom, setZoom] = useState(4.5);
+  let isMiddle = [0, 0];
 
   const features = marker.map((singleMarker) => {
     return {
@@ -33,6 +37,20 @@ export default function Map({ marker, onNewMarekr }) {
         center: centerOfMap, // center map on Chad
         zoom: zoom,
       });
+
+      const pts = marker.map((marker) => {
+        return [marker.lng, marker.lat];
+      });
+      console.log("Points", pts);
+
+      //HIER ist das Problem
+      //_turf_center__WEBPACK_IMPORTED_MODULE_4__.points is not a function
+      if (pts.length > 1) {
+        const isFeature = turf.points(pts);
+        isMiddle = turf.center(isFeature);
+
+        console.log(isMiddle);
+      }
 
       if (map) {
         map.loadImage(
@@ -91,8 +109,6 @@ export default function Map({ marker, onNewMarekr }) {
       }
     }
   }, [pageIsMounted, marker]);
-
-  console.log("center", centerOfMap);
 
   return (
     <>
