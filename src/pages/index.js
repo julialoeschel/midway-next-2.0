@@ -4,12 +4,8 @@ import styled from "styled-components";
 import { useState } from "react";
 
 export default function Home() {
-  const [marker, setMarker] = useState([
-    { lng: 73.62, lat: 14.411 },
-    { lng: 58.62, lat: 20.411 },
-  ]);
-
-  console.log(marker);
+  const [marker, setMarker] = useState([]);
+  const [center, setCenter] = useState(null);
 
   return (
     <MainPage>
