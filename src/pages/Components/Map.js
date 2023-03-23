@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import center from "@turf/center";
 import { featureCollection, point } from "@turf/helpers";
-import HomeIcon from "public/images/HomeIcon";
 
 export default function Map({ marker, onNewMarekr }) {
   const [pageIsMounted, setPageIsMounted] = useState(false);
