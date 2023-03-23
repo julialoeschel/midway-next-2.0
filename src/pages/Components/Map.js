@@ -10,7 +10,7 @@ export default function Map({ marker, onNewMarekr }) {
   const [zoom, setZoom] = useState(4.5);
   let isMiddle = [0, 0];
 
-  const features = marker.map((singleMarker) => {
+  const features = marker?.map((singleMarker) => {
     return {
       type: "Feature",
       geometry: {
