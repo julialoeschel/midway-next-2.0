@@ -55,7 +55,7 @@ export default function Map({ marker, onNewMarekr }) {
 
       if (map) {
         map.loadImage(
-          "https://cdns.iconmonstr.com/wp-content/releases/preview/7.8.0/240/iconmonstr-quote-left-filled.png",
+          "https://thumbnail.imgbin.com/8/14/2/imgbin-google-map-maker-person-computer-icons-map-DSbre9DbyXUhPyrPeHSybqVW5_t.jpg",
           (error, image) => {
             if (error) throw error;
             map.on("load", () => {
