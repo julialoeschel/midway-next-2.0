@@ -1,9 +1,12 @@
 import mapboxgl from "mapbox-gl"; // or "const mapboxgl = require('mapbox-gl');"
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import * as turf from "@turf/center";
+import center from "@turf/center";
+import { featureCollection, point } from "@turf/helpers";
+import HomeIcon from "public/images/HomeIcon";
+//import { feature } from "turf";
 // tried it all
-// import center from "@turf/center";
+
 // import midpoint from "@turf/midpoint";
 // import point from "@turf/helpers";
 
@@ -41,15 +44,19 @@ export default function Map({ marker, onNewMarekr }) {
       const pts = marker.map((marker) => {
         return [marker.lng, marker.lat];
       });
-      console.log("Points", pts);
 
-      //HIER ist das Problem
-      //_turf_center__WEBPACK_IMPORTED_MODULE_4__.points is not a function
       if (pts.length > 1) {
-        const isFeature = turf.points(pts);
-        isMiddle = turf.center(isFeature);
+        const featureCollection1 = featureCollection(
+          pts.map((pt) => point(pt))
+        );
 
-        console.log(isMiddle);
+        const middle = center(featureCollection1);
+        isMiddle = middle.geometry.coordinates;
+
+        //setMiddleMarekr
+        new mapboxgl.Marker({ color: "#3F3dCE" })
+          .setLngLat(isMiddle)
+          .addTo(map);
       }
 
       if (map) {
@@ -73,7 +80,6 @@ export default function Map({ marker, onNewMarekr }) {
                 source: "point",
                 layout: {
                   "icon-image": "custom-marker",
-                  // get the title name from the source's "title" property
                   "text-field": ["get", "title"],
                   "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
                   "text-offset": [0, 1.25],
@@ -97,11 +103,10 @@ export default function Map({ marker, onNewMarekr }) {
                 return;
               }
               const feature = features[0];
+              console.log(feature.properties);
               const popup = new mapboxgl.Popup({ offset: [0, -15] })
                 .setLngLat(feature.geometry.coordinates)
-                .setHTML(
-                  `<h3>${feature.properties.title}</h3><p>loook at meeee</p>`
-                )
+                .setHTML(`<h3>Hello</h3><p>loook at meeee</p>`)
                 .addTo(map);
             });
           }
@@ -120,4 +125,9 @@ export default function Map({ marker, onNewMarekr }) {
 const MapContainer = styled.div`
   height: 90%;
   width: 90%;
+`;
+
+const Marker11 = styled.div`
+  background-image: url("HomeIcon");
+  background-size: cover;
 `;
