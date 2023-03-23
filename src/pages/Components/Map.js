@@ -55,7 +55,7 @@ export default function Map({ marker, onNewMarekr }) {
 
       if (map) {
         map.loadImage(
-          "https://thumbnail.imgbin.com/8/14/2/imgbin-google-map-maker-person-computer-icons-map-DSbre9DbyXUhPyrPeHSybqVW5_t.jpg",
+          "https://midway-next-2-0.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FMarker.165a5d8f.png&w=64&q=75",
           (error, image) => {
             if (error) throw error;
             map.on("load", () => {
@@ -77,8 +77,9 @@ export default function Map({ marker, onNewMarekr }) {
                   "text-field": ["get", "title"],
                   "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
                   "text-offset": [0, 1.25],
-                  "text-anchor": "top",
-                  "icon-size": 0.1,
+                  "text-anchor": "bottom",
+                  "icon-anchor": "bottom",
+                  "icon-size": 0.3,
                 },
               });
             });
