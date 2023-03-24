@@ -120,4 +120,7 @@ export default function Map({ marker, onNewMarekr }) {
 const MapContainer = styled.div`
   height: 90%;
   width: 90%;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  border-radius: 1rem;
 `;
