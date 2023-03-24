@@ -7,6 +7,7 @@ export default function Burgermenu() {
   return (
     <>
       <MenuBar isShown={menuOpen}>
+        <Heading2>Welcome</Heading2>
         <ul>
           <li>test</li>
         </ul>
@@ -44,4 +45,21 @@ const MenuBar = styled.section`
   transform: ${(props) =>
     props.isShown ? "translateX(0px)" : "translateX(200px)"};
   transition: transform 1s ease-in;
+  padding: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 1rem;
+  }
+`;
+
+const Heading2 = styled.h2`
+  height: 20%;
+  display: flex;
+  align-items: end;
+  color: #862400;
 `;
