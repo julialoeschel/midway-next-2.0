@@ -8,7 +8,7 @@ export default function Map({ marker, onNewMarekr }) {
   const [pageIsMounted, setPageIsMounted] = useState(false);
   const [centerOfMap, setCenterOfMap] = useState([10.0966, 50.97]);
   const [zoom, setZoom] = useState(4.5);
-  let isMiddle = [0, 0];
+  let isMiddle;
 
   const features = marker?.map((singleMarker) => {
     return {
@@ -40,12 +40,12 @@ export default function Map({ marker, onNewMarekr }) {
       });
 
       if (pts.length > 1) {
-        const featureCollection1 = featureCollection(
+        const formatFeatureCollection = featureCollection(
           pts.map((pt) => point(pt))
         );
 
-        const middle = center(featureCollection1);
-        isMiddle = middle.geometry.coordinates;
+        const middleObject = center(formatFeatureCollection);
+        isMiddle = middleObject.geometry.coordinates;
 
         //setMiddleMarekr
         new mapboxgl.Marker({ color: "#3F3dCE" })
@@ -101,7 +101,7 @@ export default function Map({ marker, onNewMarekr }) {
               console.log(feature.properties);
               const popup = new mapboxgl.Popup({ offset: [0, -15] })
                 .setLngLat(feature.geometry.coordinates)
-                .setHTML(`<h3>Hello</h3><p>loook at meeee</p>`)
+                .setHTML(`<h3>Hello</h3><p>I am your location</p>`)
                 .addTo(map);
             });
           }
@@ -120,9 +120,4 @@ export default function Map({ marker, onNewMarekr }) {
 const MapContainer = styled.div`
   height: 90%;
   width: 90%;
-`;
-
-const Marker11 = styled.div`
-  background-image: url("HomeIcon");
-  background-size: cover;
 `;
