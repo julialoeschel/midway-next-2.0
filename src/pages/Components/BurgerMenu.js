@@ -6,22 +6,15 @@ export default function Burgermenu() {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <>
-      {menuOpen ? (
-        <>
-          <MenuBar isShown={menuOpen}>
-            <Button onClick={() => setMenuOpen(false)}>
-              <BurgermenuIcon />
-            </Button>
-            <ul>
-              <li>test</li>
-            </ul>
-          </MenuBar>
-        </>
-      ) : (
-        <Button onClick={() => setMenuOpen(true)}>
-          <BurgermenuIcon />
-        </Button>
-      )}
+      <MenuBar isShown={menuOpen}>
+        <ul>
+          <li>test</li>
+        </ul>
+      </MenuBar>
+
+      <Button onClick={() => setMenuOpen(!menuOpen)}>
+        <BurgermenuIcon />
+      </Button>
     </>
   );
 }
@@ -42,13 +35,13 @@ const Button = styled.button`
 
 const MenuBar = styled.section`
   position: absolute;
-  right: -200px;
+  right: 0px;
   width: 200px;
   z-index: 1;
   background-color: #949c9d;
   height: 100vh;
   top: 0;
-  transform: ${(prop) =>
-    prop.isShown ? "translateX(-200px)" : "translateX(0)"};
-  transition: transform 0.4s ease-in;
+  transform: ${(props) =>
+    props.isShown ? "translateX(0px)" : "translateX(200px)"};
+  transition: transform 1s ease-in;
 `;
