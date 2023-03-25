@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import BurgermenuIcon from "../assets/BurgermenuIcon.js";
+import Link from "next/link.js";
 
 export default function Burgermenu() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,7 +10,7 @@ export default function Burgermenu() {
       <MenuBar isShown={menuOpen}>
         <Heading2>Welcome</Heading2>
         <ul>
-          <li>test</li>
+          <Link href="/geocoding">find locations</Link>
         </ul>
       </MenuBar>
 

@@ -6,7 +6,6 @@ import { useState } from "react";
 
 export default function Home() {
   const [marker, setMarker] = useState([]);
-  const [center, setCenter] = useState(null);
 
   return (
     <MainPage>
