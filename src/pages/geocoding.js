@@ -3,6 +3,7 @@ import mapboxgl from "mapbox-gl"; // or "const mapboxgl = require('mapbox-gl');"
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import { useRef, useState } from "react";
+import Link from "next/link";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_GL_ACCESS_TOKEN;
 
@@ -13,7 +14,13 @@ geocoder = new MapboxGeocoder({
   mapboxgl: mapboxgl,
 });
 
-export default function Geocoding({ locations, onNewLocation, onDelete }) {
+export default function Geocoding({
+  locations,
+  onNewLocation,
+  onDelete,
+  marker,
+  onDeleteMarker,
+}) {
   const geocoderElement = useRef();
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -27,8 +34,6 @@ export default function Geocoding({ locations, onNewLocation, onDelete }) {
     onNewLocation(newLocation);
     geocoder.clear();
   });
-
-  console.log(locations);
 
   return (
     <>
@@ -50,6 +55,22 @@ export default function Geocoding({ locations, onNewLocation, onDelete }) {
           </li>
         ))}
       </ul>
+      <ul>
+        {marker.map((markerr, index) => {
+          return (
+            <li key={markerr.lat + markerr.lng}>
+              <span>
+                location {index + 1} [{markerr.lng.toFixed(1)}|{" "}
+                {markerr.lat.toFixed(1)}]
+              </span>
+              <button onClick={() => onDeleteMarker(markerr.lng, markerr.lat)}>
+                x
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+      <Link href="/">map</Link>
     </>
   );
 }

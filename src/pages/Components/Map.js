@@ -4,13 +4,13 @@ import styled from "styled-components";
 import center from "@turf/center";
 import { featureCollection, point } from "@turf/helpers";
 
-export default function Map({ marker, onNewMarekr }) {
+export default function Map({ marker, onNewMarekr, locations }) {
   const [pageIsMounted, setPageIsMounted] = useState(false);
   const [centerOfMap, setCenterOfMap] = useState([10.0966, 50.97]);
   const [zoom, setZoom] = useState(4.5);
   let isMiddle;
 
-  const features = marker?.map((singleMarker) => {
+  const features1 = marker?.map((singleMarker) => {
     return {
       type: "Feature",
       geometry: {
@@ -19,6 +19,18 @@ export default function Map({ marker, onNewMarekr }) {
       },
     };
   });
+
+  const features2 = locations.map((location) => {
+    return {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: location.coordinates,
+      },
+    };
+  });
+
+  const features = [...features1, ...features2];
 
   useEffect(() => {
     setPageIsMounted(true);
@@ -98,7 +110,7 @@ export default function Map({ marker, onNewMarekr }) {
                 return;
               }
               const feature = features[0];
-              console.log(feature.properties);
+
               const popup = new mapboxgl.Popup({ offset: [0, -15] })
                 .setLngLat(feature.geometry.coordinates)
                 .setHTML(`<h3>Hello</h3><p>I am your location</p>`)

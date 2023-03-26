@@ -4,9 +4,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useState } from "react";
 
-export default function Home() {
-  const [marker, setMarker] = useState([]);
-
+export default function Home({ locations, marker, handleNweMarker }) {
   return (
     <MainPage>
       <Head>
@@ -21,8 +19,9 @@ export default function Home() {
       <Map
         marker={marker}
         onNewMarekr={(lngLatObject) =>
-          setMarker((prev) => [...prev, lngLatObject])
+          handleNweMarker((prev) => [...prev, lngLatObject])
         }
+        locations={locations}
       ></Map>
     </MainPage>
   );
