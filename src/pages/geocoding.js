@@ -4,6 +4,7 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import { useRef, useState } from "react";
 import Link from "next/link";
+import Burgermenu from "./Components/BurgerMenu";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_GL_ACCESS_TOKEN;
 
@@ -37,6 +38,8 @@ export default function Geocoding({
 
   return (
     <>
+      <Burgermenu></Burgermenu>
+
       <button
         onClick={() => {
           geocoder?.addTo("#geocoder");
@@ -70,7 +73,6 @@ export default function Geocoding({
           );
         })}
       </ul>
-      <Link href="/">map</Link>
     </>
   );
 }
