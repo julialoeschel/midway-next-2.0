@@ -39,8 +39,7 @@ export default function Geocoding({
   return (
     <>
       <Burgermenu></Burgermenu>
-
-      <button
+      <Button
         onClick={() => {
           geocoder?.addTo("#geocoder");
           setButtonDisabled(true);
@@ -48,17 +47,18 @@ export default function Geocoding({
         disabled={buttonDisabled}
       >
         click to search location
-      </button>
-      <GeoCoder ref={geocoderElement} id="geocoder"></GeoCoder>
-      <ul>
+      </Button>
+      <GeoLocator ref={geocoderElement} id="geocoder"></GeoLocator>
+      <Headline>your locations</Headline>
+      <List>
         {locations.map((location) => (
           <li key={location.id}>
             <span>{location.name}</span>
             <button onClick={() => onDelete(location.id)}>x</button>
           </li>
         ))}
-      </ul>
-      <ul>
+      </List>
+      <List>
         {marker.map((markerr, index) => {
           return (
             <li key={markerr.lat + markerr.lng}>
@@ -72,9 +72,54 @@ export default function Geocoding({
             </li>
           );
         })}
-      </ul>
+        {marker.length === 0 && locations.length === 0 ? (
+          <p>no location jet</p>
+        ) : null}
+      </List>
     </>
   );
 }
 
-const GeoCoder = styled.div``;
+const Button = styled.button`
+  margin: 2rem;
+  background-color: ${(props) => (props.disabled ? "gray" : "#862400")};
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 2rem;
+`;
+
+const GeoLocator = styled.div`
+  padding: 1rem;
+  height: 3.3rem;
+`;
+
+const List = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0;
+  margin: 1rem;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eefcfe;
+    padding: 0 0.5rem;
+    border-radius: 1rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  button {
+    width: 4rem;
+    height: 2rem;
+    border: none;
+    background-color: transparent;
+  }
+`;
+
+const Headline = styled.h2`
+  padding: 1rem 1rem 0 1rem;
+`;
