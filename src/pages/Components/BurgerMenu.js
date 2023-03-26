@@ -7,12 +7,12 @@ import { useRouter } from "next/router.js";
 export default function Burgermenu() {
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
-  console.log(router.pathname);
 
   return (
     <>
       <MenuBar isShown={menuOpen}>
         <Heading2>Welcome</Heading2>
+        <p>add locations by click on the map or use the location finder</p>
         <ul>
           {router.pathname !== "/geocoding" ? (
             <li>
@@ -54,7 +54,7 @@ const Button = styled.button`
 
 const MenuBar = styled.section`
   position: absolute;
-  right: -2rem;
+  right: 0;
   width: 200px;
   z-index: 1;
   background-color: #949c9d;

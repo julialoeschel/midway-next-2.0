@@ -18,8 +18,6 @@ function MyApp({ Component, pageProps }) {
   }
 
   function handleDeleteMarker(lng, lat) {
-    console.log(lng, lat);
-    console.log(marker[0].lng, lng);
     setMarker(
       marker.filter((markerr) => markerr.lng !== lng && markerr.lat !== lat)
     );

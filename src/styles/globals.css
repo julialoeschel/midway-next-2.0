@@ -1,6 +1,6 @@
-/* * {
-  outline: 1px solid black;
-} */
+* {
+  box-sizing: border-box;
+}
 body {
   background: #cad2d3;
   padding: 0;

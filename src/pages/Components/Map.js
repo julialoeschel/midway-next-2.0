@@ -47,9 +47,14 @@ export default function Map({ marker, onNewMarekr, locations }) {
         zoom: zoom,
       });
 
-      const pts = marker.map((marker) => {
+      const pts1 = marker.map((marker) => {
         return [marker.lng, marker.lat];
       });
+      const pts2 = locations.map((location) => {
+        return location.coordinates;
+      });
+
+      const pts = [...pts1, ...pts2];
 
       if (pts.length > 1) {
         const formatFeatureCollection = featureCollection(
