@@ -31,7 +31,6 @@ export default function Home() {
 const MainPage = styled.div`
   height: 100vh;
   width: 100vw;
-  background: #cad2d3;
   display: flex;
   position: relative;
   justify-content: center;

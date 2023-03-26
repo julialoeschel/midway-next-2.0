@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^5.0.1",
     "@next/font": "13.1.2",
     "@turf/center": "^6.5.0",
     "@turf/helpers": "^6.5.0",
