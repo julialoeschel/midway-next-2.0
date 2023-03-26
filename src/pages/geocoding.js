@@ -13,14 +13,22 @@ geocoder = new MapboxGeocoder({
   mapboxgl: mapboxgl,
 });
 
-export default function Geocosing() {
+export default function Geocoding({ locations, onNewLocation, onDelete }) {
   const geocoderElement = useRef();
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
   geocoder?.on("result", (event) => {
-    console.log("event", event);
+    const newLocation = {
+      id: event.result.id,
+      coordinates: event.result.center,
+      name: event.result.text,
+    };
+
+    onNewLocation(newLocation);
     geocoder.clear();
   });
+
+  console.log(locations);
 
   return (
     <>
@@ -34,11 +42,16 @@ export default function Geocosing() {
         click to search location
       </button>
       <GeoCoder ref={geocoderElement} id="geocoder"></GeoCoder>
+      <ul>
+        {locations.map((location) => (
+          <li>
+            <span>{location.name}</span>
+            <button onClick={() => onDelete(location.id)}>x</button>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
 
-const GeoCoder = styled.div`
-  height: 36px;
-  overflow: hidden;
-`;
+const GeoCoder = styled.div``;
