@@ -49,7 +49,7 @@ export default function Geocoding({
       <GeoCoder ref={geocoderElement} id="geocoder"></GeoCoder>
       <ul>
         {locations.map((location) => (
-          <li>
+          <li key={location.id}>
             <span>{location.name}</span>
             <button onClick={() => onDelete(location.id)}>x</button>
           </li>
