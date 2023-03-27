@@ -4,10 +4,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useState } from "react";
 
-export default function Home() {
-  const [marker, setMarker] = useState([]);
-  const [center, setCenter] = useState(null);
-
+export default function Home({ locations, marker, handleNweMarker }) {
   return (
     <MainPage>
       <Head>
@@ -22,8 +19,9 @@ export default function Home() {
       <Map
         marker={marker}
         onNewMarekr={(lngLatObject) =>
-          setMarker((prev) => [...prev, lngLatObject])
+          handleNweMarker((prev) => [...prev, lngLatObject])
         }
+        locations={locations}
       ></Map>
     </MainPage>
   );
@@ -32,7 +30,6 @@ export default function Home() {
 const MainPage = styled.div`
   height: 100vh;
   width: 100vw;
-  background: #cad2d3;
   display: flex;
   position: relative;
   justify-content: center;
